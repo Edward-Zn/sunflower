@@ -2,7 +2,7 @@
 const express = require("express");
 // Cross-Origin Resource Sharing for node.js. Middleware. Allows resource sharing across servers
 const cors = require("cors");
-// Body-parser is express middleware is express middleware
+// Body-parser is express middleware
 // that reads a form's input and stores it as a javascript object accessible through req.body
 const bodyParser = require('body-parser');
 
