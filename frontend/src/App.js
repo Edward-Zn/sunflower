@@ -15,7 +15,6 @@ function App() {
   const handleRegister = () => {
     setIsRegistered(true);
   };
-  console.log(players.length);
   // const handlePlayerSubmit = (playerName) => {
   //   setPlayers([...players, { name: playerName, id: players.length }]); // ... - Spread for iterable players
   // };

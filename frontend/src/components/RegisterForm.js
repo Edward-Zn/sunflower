@@ -31,6 +31,8 @@ const RegisterForm = () => {
                 <input type="password" name="password" value={formData.password} onChange={handleChange} required />
 
                 <button type="submit">Register</button>
+                {/* <label>---</label>
+                <button type="submit" class="error-button">Cancel</button> */}
             </form>
         </div>
     );
