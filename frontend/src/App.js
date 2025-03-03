@@ -16,13 +16,6 @@ function App() {
   const handlePlayerSubmit = (playerData) => {
     setPlayers((prevPlayers) => [...prevPlayers, playerData]); // ... - Spread for iterable players
   };
-  // const handlePlayerSubmit = (playerName) => {
-  //   setPlayers([...players, { name: playerName, id: players.length }]);
-  // };
-
-  // const handleEndTurn = () => {
-  //   setCurrentTurn((prev) => (prev + 1) % players.length);
-  // };
 
   // If the user is NOT registered, <RegisterForm /> appears.
   // After registration, we show <PlayerForm /> (adding players).
@@ -40,18 +33,6 @@ function App() {
           <ActionPanel />
         </>
       )}
-
-      {/* {!isRegistered ? (
-        <RegisterForm onRegister={handleRegister} />
-      ) : players.length < 2 ? (
-        <PlayerForm onSubmit={setPlayers} />
-      ) : (
-        <>
-          <TurnIndicator currentPlayer={players[currentTurn]} />
-          <GameBoard players={players} />
-          <ActionPanel onEndTurn={() => setCurrentTurn((currentTurn + 1) % players.length)} />
-        </>
-      )} */}
     </div>
   );
 }
