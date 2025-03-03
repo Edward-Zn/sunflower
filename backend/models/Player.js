@@ -1,8 +1,8 @@
 // backend/models/Player.js
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../db');
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../db");
 
-const Player = sequelize.define('Player', {
+const Player = sequelize.define("Player", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -4,10 +4,10 @@ const express = require("express");
 const cors = require("cors");
 // Body-parser is express middleware
 // that reads a form's input and stores it as a javascript object accessible through req.body
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
-const playerRoutes = require('./routes/player');
-const gameRoutes = require('./routes/game');
+const playerRoutes = require("./routes/player");
+const gameRoutes = require("./routes/game");
 
 require("dotenv").config();
 
@@ -20,9 +20,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Sunflower RPG API!");
 });
 
-app.use('/api/player', playerRoutes); // Player routes
-app.use('/api/game', gameRoutes); // Game routes
-
+app.use("/api/player", playerRoutes); // Player routes
+app.use("/api/game", gameRoutes); // Game routes
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
