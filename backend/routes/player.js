@@ -1,23 +1,30 @@
 // backend/routes/player.js
 const express = require("express");
 const Player = require("../models/Player");
-const crypto = require("crypto");
+const bcrypt = require('bcrypt');
 const moment = require("moment");
 const router = express.Router();
 
 // POST: Register a new player
 router.post("/register", async (req, res) => {
   try {
-    const { username, phone } = req.body;
+    const { username, email, password } = req.body;
 
     // Generate a unique link for the player
     const uniqueLink = crypto.randomBytes(16).toString("hex");
     const linkExpiresAt = moment().add(7, "days").toDate(); // Link expires in 7 days
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
     // Save the player to the database
     const player = await Player.create({
       username,
-      phone,
+      email,
+      password: hashedPassword,
       uniqueLink,
       linkExpiresAt,
     });
@@ -26,7 +33,7 @@ router.post("/register", async (req, res) => {
       message: "Player registered successfully!",
       player: {
         username: player.username,
-        phone: player.phone,
+        email: player.email,
         uniqueLink: player.uniqueLink,
         linkExpiresAt: player.linkExpiresAt,
       },
