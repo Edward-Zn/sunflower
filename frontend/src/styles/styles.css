@@ -19,9 +19,6 @@
 .register-container button {
   width: 100%;
   padding: 10px;
-  /* background: #28a745; */
-  /* background: #b4dc19; */
-  /* background: #e3f988; */
   background: #a0c4a1;
   color: white;
   border: none;
@@ -36,9 +33,6 @@
 .register-container .error-button {
   width: 100%;
   padding: 10px;
-  /* background: #28a745; */
-  /* background: #b4dc19; */
-  /* background: #e3f988; */
   background: #c39c7f;
   color: white;
   border: none;

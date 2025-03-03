@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RegisterForm = () => {
+const RegisterForm = ({ onRegister }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -28,7 +28,7 @@ const RegisterForm = () => {
 
       if (response.ok) {
         console.log("Player registered successfully:", data);
-        onRegister(data); // Pass player data to the parent component (App.js)
+        onRegister(data); // Call the prop function to update parent state (App.js)
       } else {
         console.error("Registration failed:", data.message);
       }
@@ -47,7 +47,9 @@ const RegisterForm = () => {
           name="username"
           value={formData.username}
           onChange={handleChange}
+          placeholder="Enter your username"
           required
+          className="input-field"
         />
 
         <label>Email:</label>
@@ -57,6 +59,7 @@ const RegisterForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
+          className="input-field"
         />
 
         <label>Password:</label>
@@ -66,11 +69,10 @@ const RegisterForm = () => {
           value={formData.password}
           onChange={handleChange}
           required
+          className="input-field"
         />
 
         <button type="submit">Register</button>
-        {/* <label>---</label>
-                <button type="submit" class="error-button">Cancel</button> */}
       </form>
     </div>
   );
