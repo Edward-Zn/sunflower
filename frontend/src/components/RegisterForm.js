@@ -13,27 +13,38 @@ const RegisterForm = ({ onRegister }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submitting registration:", formData);
 
+    if (!formData.username || !formData.email || !formData.password) {
+      console.error("All fields are required.");
+      return;
+    }
+
+    console.log("Submitting registration:", formData);
     try {
-      const response = await fetch("http://localhost:5000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      console.log(JSON.stringify(formData));
+      const response = await fetch(
+        "http://localhost:5000/api/player/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
-
+      console.log("On Register data:", JSON.stringify(data));
       if (response.ok) {
         console.log("Player registered successfully:", data);
         onRegister(data); // Call the prop function to update parent state (App.js)
+
+        setFormData({ username: "", email: "", password: "" });
       } else {
-        console.error("Registration failed:", data.message);
+        console.error("Registration failed (RF):", data.message);
       }
     } catch (error) {
-      console.error("Error registering player:", error);
+      console.error("Error registering player (RF):", error);
     }
   };
 
