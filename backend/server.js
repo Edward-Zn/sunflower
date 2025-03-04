@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Sunflower RPG API!");
+  res.send("Welcome to the Sunflower Field!");
 });
 
 app.use("/api/player", playerRoutes); // Player routes
