@@ -128,9 +128,9 @@ sunflower-field/
 
 ### 🚧 Roadmap
 
-[x] Implement player registration
-[ ] Basic turn-based mechanics
-[ ] Add advanced game actions
-[ ] Implement game state persistence
-[ ] Add user authentication
+- [x] Implement player registration
+- [ ] Basic turn-based mechanics
+- [ ] Add advanced game actions
+- [ ] Implement game state persistence
+- [ ] Add user authentication
 
