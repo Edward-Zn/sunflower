@@ -1,7 +1,5 @@
 # 🌻 Sunflower Field
 
-A turn-based strategy RPG battle system built with a Node.js backend, React frontend and MySQL database. The Sunflower Field project aims to implement the basic turn-based mechanics, including player registration and game interface.
-
 ---
 
 ## 📋 Prerequisites
@@ -117,16 +115,22 @@ sunflower-field/
 ## 🤖 Technologies Used
 
 #### Backend
-Node.js with Express
-Sequelize ORM
-MySQL as the database
-bcrypt for password hashing
-moment.js for date handling
+* Node.js with Express
+* Sequelize ORM
+* MySQL as the database
+* bcrypt for password hashing
+* moment.js for date handling
 #### Frontend
-React with Create React App
-Tailwind CSS for styling
+* React with Create React App
+* Tailwind CSS for styling
 
 ---
 
 ### 🚧 Roadmap
+
+[x] Implement player registration
+[ ] Basic turn-based mechanics
+[ ] Add advanced game actions
+[ ] Implement game state persistence
+[ ] Add user authentication
 
