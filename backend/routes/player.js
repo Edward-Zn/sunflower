@@ -5,26 +5,27 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const router = express.Router();
+const logger = require('../utils/logger');
 
 // POST: Register a new player
 router.post("/register", async (req, res) => {
-  console.log("Player data before save:", req.body);
+  logger.info("Player data before save:", req.body);
   try {
     const { username, email, password } = req.body;
-    console.log("REQ BODY: " + JSON.stringify(req.body));
+    logger.info("REQ BODY: ", JSON.stringify(req.body));
     // Generate a unique link for the player
     const uniqueLink = crypto.randomBytes(16).toString("hex");
     const linkExpiresAt = moment().add(7, "days").toDate(); // Link expires in 7 days
 
     if (!username || !email || !password) {
-      console.log("Validation failed. Missing fields:", { username, email, password });
+      logger.error("Validation failed. Missing fields:", { username, email, password });
       return res.status(400).json({ message: "All fields are required" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Save the player to the database
-    console.log("Attempting to create player with:", { username, email, hashedPassword });
+    logger.info('Attempting to create a new player', { username, email, hashedPassword });
     const player = await Player.create({
       username,
       email,
@@ -49,12 +50,12 @@ router.post("/register", async (req, res) => {
         .json({ message: "Username or email already exists" });
     }
 
-    console.error("Server error (player.js):", err.message); // Log the real error message in the server console
+    logger.error("Server error (player.js):", err.message); // Log the real error message in the server console
     res.status(500).json({ 
         message: "Error registering player. Server error (player.js)", 
         error: err.message || "Unknown error" 
     });
-    console.log("BODY: ", req.body);
+    logger.info("REQUEST BODY: ", req.body);
   }
 });
 
