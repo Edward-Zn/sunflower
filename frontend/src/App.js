@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import RegisterForm from "./components/RegisterForm";
 import PlayerForm from "./components/PlayerForm";
@@ -13,9 +15,23 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [currentTurn, setCurrentTurn] = useState(0);
 
+  // Notify player when registration is successful
   const handlePlayerSubmit = (playerData) => {
     setPlayers((prevPlayers) => [...prevPlayers, playerData]); // ... - Spread for iterable players
+    toast.success(`Player ${playerData.username} joined the game!`);
   };
+
+  // Notify when game starts
+  const startGameNotification = () => {
+    if (players.length === 2) {
+      toast.info("Let the game begin! ⚔️");
+    }
+  };
+
+  // Trigger start game notification when 2 players join
+  React.useEffect(() => {
+    startGameNotification();
+  }, [players]);
 
   // If the user is NOT registered, <RegisterForm /> appears.
   // After registration, we show <PlayerForm /> (adding players).
@@ -33,6 +49,20 @@ function App() {
           <ActionPanel />
         </>
       )}
+
+      {/* Toast Container to handle notifications */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
