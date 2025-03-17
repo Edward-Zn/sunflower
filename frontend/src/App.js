@@ -8,6 +8,8 @@ import GameBoard from "./components/GameBoard";
 import TurnIndicator from "./components/TurnIndicator";
 import ActionPanel from "./components/ActionPanel";
 
+import log from "./utils/logger";
+
 import "./styles/styles.css";
 
 function App() {
@@ -18,7 +20,9 @@ function App() {
   // Notify player when registration is successful
   const handlePlayerSubmit = (playerData) => {
     setPlayers((prevPlayers) => [...prevPlayers, playerData]); // ... - Spread for iterable players
-    toast.success(`Player ${playerData.username} joined the game!`);
+    log.info("Player Data", playerData);
+    const { player: { username } } = playerData;
+    toast.success(`Player ${username} joined the game!`);
   };
 
   // Notify when game starts
