@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import log from "../utils/logger";
 
 const RegisterForm = ({ onRegister }) => {
   const [formData, setFormData] = useState({
@@ -15,13 +16,13 @@ const RegisterForm = ({ onRegister }) => {
     event.preventDefault();
 
     if (!formData.username || !formData.email || !formData.password) {
-      console.error("All fields are required.");
+      log.error("All fields are required");
       return;
     }
 
-    console.log("Submitting registration:", formData);
+    log.info("Submitting registration: ", formData);
     try {
-      console.log(JSON.stringify(formData));
+      log.info(JSON.stringify(formData));
       const response = await fetch(
         "http://localhost:5000/api/player/register",
         {
@@ -34,17 +35,18 @@ const RegisterForm = ({ onRegister }) => {
       );
 
       const data = await response.json();
-      console.log("On Register data:", JSON.stringify(data));
+      log.info("On register data:", JSON.stringify(data));
+
       if (response.ok) {
-        console.log("Player registered successfully:", data);
+        log.info("Player registered successfully:", data);
         onRegister(data); // Call the prop function to update parent state (App.js)
 
         setFormData({ username: "", email: "", password: "" });
       } else {
-        console.error("Registration failed (RF):", data.message);
+        log.error("Registration failed (RegisterForm)", data.message);
       }
     } catch (error) {
-      console.error("Error registering player (RF):", error);
+      log.error("Error registering player (RegisterForm):", error);
     }
   };
 
