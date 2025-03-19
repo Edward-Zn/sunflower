@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 const router = express.Router();
+const { generateToken } = require('../utils/jwt');
 const logger = require('../utils/logger');
 
 // POST: Register a new player
@@ -13,6 +14,7 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     logger.info("REQ BODY: ", JSON.stringify(req.body));
+
     // Generate a unique link for the player
     const uniqueLink = crypto.randomBytes(16).toString("hex");
     const linkExpiresAt = moment().add(7, "days").toDate(); // Link expires in 7 days
@@ -22,11 +24,16 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    const existingPlayer = await Player.findOne({ where: { email } });
+    if (existingPlayer) {
+      return res.status(400).json({ message: "Email already exists!" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Save the player to the database
     logger.info('Attempting to create a new player', { username, email, hashedPassword });
-    const player = await Player.create({
+    const newPlayer = await Player.create({
       username,
       email,
       password: hashedPassword,
@@ -34,15 +41,19 @@ router.post("/register", async (req, res) => {
       linkExpiresAt,
     });
 
+    const token = generateToken(newPlayer);
+
     res.status(201).json({
       message: "Player registered successfully!",
       player: {
-        username: player.username,
-        email: player.email,
-        uniqueLink: player.uniqueLink,
-        linkExpiresAt: player.linkExpiresAt,
+        username: newPlayer.username,
+        email: newPlayer.email,
+        uniqueLink: newPlayer.uniqueLink,
+        linkExpiresAt: newPlayer.linkExpiresAt,
       },
+      token,
     });
+    
   } catch (err) {
     if (err.name === "SequelizeUniqueConstraintError") {
       return res
