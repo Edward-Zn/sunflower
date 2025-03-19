@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
       },
       token,
     });
-    
+
   } catch (err) {
     if (err.name === "SequelizeUniqueConstraintError") {
       return res
@@ -73,3 +73,37 @@ router.post("/register", async (req, res) => {
 module.exports = router;
 
 // Endpoint POST http://localhost:5000/api/player/register
+
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const player = await Player.findOne({ where: { email } });
+    if (!player) {
+      return res.status(404).json({ message: "Player not found!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, player.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid password!" });
+    }
+
+    const token = generateToken(player);
+
+    res.status(200).json({
+      message: "Login successful!",
+      player: {
+        username: player.username,
+        email: player.email,
+        uniqueLink: player.uniqueLink,
+      },
+      token,
+    });
+
+  } catch (error) {
+    logger.error("Login error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+// Endpoint POST http://localhost:5000/api/player/login
