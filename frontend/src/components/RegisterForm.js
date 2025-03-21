@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import log from "../utils/logger";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const RegisterForm = ({ onRegister }) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -9,8 +11,11 @@ const RegisterForm = ({ onRegister }) => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
   };
+
+  // For disabling Register Button while submitting data
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,11 +25,13 @@ const RegisterForm = ({ onRegister }) => {
       return;
     }
 
+    setIsSubmitting(true);
+
     log.info("Submitting registration: ", formData);
     try {
       log.info(JSON.stringify(formData));
       const response = await fetch(
-        "http://localhost:5000/api/player/register",
+        `${API_URL}/api/player/register`,
         {
           method: "POST",
           headers: {
@@ -44,10 +51,14 @@ const RegisterForm = ({ onRegister }) => {
         setFormData({ username: "", email: "", password: "" });
       } else {
         log.error("Registration failed (RegisterForm)", data.message);
+        alert(`Registration failed: ${data.message}`);
       }
     } catch (error) {
       log.error("Error registering player (RegisterForm):", error);
+      alert("An error occurred while registering.");
     }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -85,7 +96,9 @@ const RegisterForm = ({ onRegister }) => {
           className="input-field"
         />
 
-        <button type="submit">Register</button>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Registering..." : "Register"}
+        </button>
       </form>
     </div>
   );

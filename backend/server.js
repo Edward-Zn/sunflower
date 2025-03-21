@@ -24,4 +24,9 @@ app.use("/api/player", playerRoutes); // Player routes
 app.use("/api/game", gameRoutes); // Game routes
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Listen to all network interfaces (0.0.0.0)
+const IP_ADDRESS = "0.0.0.0";
+app.listen(PORT, IP_ADDRESS, () =>
+  console.log(`Server running on port ${PORT}`)
+);
