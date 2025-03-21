@@ -43,3 +43,16 @@
 .register-container .error-button:hover {
   background: #977861;
 }
+
+.link-button {
+  background: none;
+  color: #4a5568;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+.link-button:hover {
+  color: #2d3748;
+}

@@ -63,7 +63,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="input-field"
         />
-        <button type="submit" disabled={isLoggingIn}>
+        <button type="submit" disabled={isLoggingIn} className="link-button">
           {isLoggingIn ? "Logging in..." : "Login"}
         </button>
       </form>
