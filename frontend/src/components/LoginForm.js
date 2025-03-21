@@ -30,7 +30,6 @@ const LoginForm = ({ onLoginSuccess }) => {
       // Save JWT token to the browser local storage
       localStorage.setItem("token", token);
 
-      toast.success(`Welcome back, ${player.username}!`);
       onLoginSuccess(player);
     } catch (error) {
       toast.error(
