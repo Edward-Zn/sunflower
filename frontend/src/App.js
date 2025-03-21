@@ -18,6 +18,10 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [currentTurn, setCurrentTurn] = useState(0);
 
+  const [showLogin, setShowLogin] = useState(true);
+
+  const toggleForm = () => setShowLogin(!showLogin);
+
   // Handle successful registration
   const handlePlayerSubmit = (playerData) => {
     setPlayer(playerData.player);
@@ -40,8 +44,27 @@ function App() {
 
       {!isLoggedIn ? (
         <>
-          <RegisterForm onRegister={handlePlayerSubmit} />
-          <LoginForm onLoginSuccess={handleLoginSuccess} />
+          {showLogin ? (
+            <>
+              <LoginForm onLoginSuccess={handleLoginSuccess} />
+              <p>
+                Don't have an account?{" "}
+                <button onClick={toggleForm} className="link-button">
+                  Register here
+                </button>
+              </p>
+            </>
+          ) : (
+            <>
+              <RegisterForm onRegister={handlePlayerSubmit} />
+              <p>
+                Already have an account?{" "}
+                <button onClick={toggleForm} className="link-button">
+                  Login here
+                </button>
+              </p>
+            </>
+          )}
         </>
       ) : (
         <Lobby player={player} />

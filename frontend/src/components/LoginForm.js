@@ -41,24 +41,33 @@ const LoginForm = ({ onLoginSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value.trim())}
-        autoFocus
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" disabled={isLoggingIn}>
-        {isLoggingIn ? "Logging in..." : "Login"}
-      </button>
-    </form>
+    <div className="register-container">
+      <h2>Player Registration</h2>
+      <form onSubmit={handleLogin}>
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value.trim())}
+          className="input-field"
+          autoFocus
+        />
+        <label>Paswword:</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input-field"
+        />
+        <button type="submit" disabled={isLoggingIn}>
+          {isLoggingIn ? "Logging in..." : "Login"}
+        </button>
+      </form>
+    </div>
   );
 };
 
