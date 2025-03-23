@@ -1,12 +1,17 @@
 // backend/routes/player.js
 const express = require("express");
-const Player = require("../models/Player");
+const router = express.Router();
+
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
-const router = express.Router();
+
 const { generateToken } = require('../utils/jwt');
 const logger = require('../utils/logger');
+
+const Player = require("../models/Player");
+
+const authMiddleware = require("../middleware/authMiddleware"); // JWT check middleware
 
 // POST: Register a new player
 router.post("/register", async (req, res) => {
@@ -107,3 +112,11 @@ router.post('/login', async (req, res) => {
 });
 
 // Endpoint POST http://localhost:5000/api/player/login
+
+// Protected route to validate token and fetch player data
+router.get("/me", authMiddleware, (req, res) => {
+  const player = req.player; // From the decoded token
+  res.json({ player });
+});
+
+// Endpoint POST http://localhost:5000/api/player/me

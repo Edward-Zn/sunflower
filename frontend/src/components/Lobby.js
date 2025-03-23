@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const Lobby = ({ player, onLogout }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
+    window.location.reload(); // Force reset to login page
     toast.info("Logged out successfully. See you soon!");
     onLogout();
   };
