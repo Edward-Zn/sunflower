@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from "react";
 
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
@@ -9,8 +7,12 @@ import GameBoard from "./components/GameBoard";
 import TurnIndicator from "./components/TurnIndicator";
 import ActionPanel from "./components/ActionPanel";
 
-import log from "./utils/logger";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./styles/styles.css";
+import log from "./utils/logger";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,7 +21,6 @@ function App() {
   const [currentTurn, setCurrentTurn] = useState(0);
 
   const [showLogin, setShowLogin] = useState(true);
-
   const toggleForm = () => setShowLogin(!showLogin);
 
   // Handle successful registration
@@ -34,7 +35,6 @@ function App() {
   const handleLoginSuccess = (playerData) => {
     setPlayer(playerData);
     setIsLoggedIn(true);
-    toast.success(`Welcome back, ${playerData.username}!`);
   };
 
   // Handle logout
@@ -42,6 +42,26 @@ function App() {
     setIsLoggedIn(false);
     setPlayer(null);
   };
+
+  useEffect(() => {
+    // Check localStorage for token
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios
+        .get(`${API_URL}/api/player/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setIsLoggedIn(true);
+          setPlayer(response.data.player);
+        })
+        .catch((error) => {
+          log.error("Failed to fetch player:", error);
+          localStorage.removeItem("token");
+        });
+    }
+  }, []);
 
   // Show either registration, login, or lobby
   return (

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { showSuccess, showError } from "../utils/toastNotifications";
 import log from "../utils/logger";
 
 const LoginForm = ({ onLoginSuccess }) => {
@@ -30,9 +31,10 @@ const LoginForm = ({ onLoginSuccess }) => {
       // Save JWT token to the browser local storage
       localStorage.setItem("token", token);
 
+      showSuccess(`Welcome back, ${player.username}!`);
       onLoginSuccess(player);
     } catch (error) {
-      toast.error(
+      showError(
         "Login failed: " + (error.response?.data?.message || error.message)
       );
     } finally {
