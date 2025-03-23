@@ -42,7 +42,7 @@ const LoginForm = ({ onLoginSuccess }) => {
 
   return (
     <div className="register-container">
-      <h2>Player Registration</h2>
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <label>Email:</label>
         <input
@@ -51,6 +51,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value.trim())}
+          required
           className="input-field"
           autoFocus
         />
@@ -61,6 +62,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
           className="input-field"
         />
         <button type="submit" disabled={isLoggingIn} className="link-button">
