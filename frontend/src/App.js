@@ -37,6 +37,12 @@ function App() {
     toast.success(`Welcome back, ${playerData.username}!`);
   };
 
+  // Handle logout
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setPlayer(null);
+  };
+
   // Show either registration, login, or lobby
   return (
     <div className="container mx-auto p-4 text-center">
@@ -67,7 +73,7 @@ function App() {
           )}
         </>
       ) : (
-        <Lobby player={player} />
+        <Lobby player={player} onLogout={handleLogout} />
       )}
 
       {/* Toast Container to handle notifications */}
