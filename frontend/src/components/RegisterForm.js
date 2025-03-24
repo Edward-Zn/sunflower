@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import log from "../utils/logger";
+import fetchWithAuth from "../utils/api";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -30,16 +31,14 @@ const RegisterForm = ({ onRegister }) => {
     log.info("Submitting registration: ", formData);
     try {
       log.info(JSON.stringify(formData));
-      const response = await fetch(
-        `${API_URL}/api/player/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+
+      const response = await fetchWithAuth("/api/player/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
       log.info("On register data:", JSON.stringify(data));

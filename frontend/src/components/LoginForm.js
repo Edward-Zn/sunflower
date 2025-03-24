@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-// import { toast } from "react-toastify";
 import { showSuccess, showError } from "../utils/toastNotifications";
 import log from "../utils/logger";
+import fetchWithAuth from "../utils/api";
 
 const LoginForm = ({ onLoginSuccess }) => {
   const API_URL = process.env.REACT_APP_API_URL;
@@ -34,8 +34,9 @@ const LoginForm = ({ onLoginSuccess }) => {
       showSuccess(`Welcome back, ${player.username}!`);
       onLoginSuccess(player);
     } catch (error) {
+      log.error('Login failed', error);
       showError(
-        "Login failed: " + (error.response?.data?.message || error.message)
+        "Login failed (Form): " + (error.response?.data?.message || error.message)
       );
     } finally {
       setIsLoggingIn(false);

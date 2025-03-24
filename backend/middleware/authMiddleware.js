@@ -1,14 +1,12 @@
 const { verifyToken } = require("../utils/jwt");
-const logger = require('../utils/logger');
+const logger = require("../utils/logger");
 
 const authenticatePlayer = (req, res, next) => {
-  try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token)
-      return res
-        .status(401)
-        .json({ message: "Unauthorized. No token provided" });
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token)
+    return res.status(401).json({ message: "Unauthorized. No token provided" });
 
+  try {
     const decoded = verifyToken(token);
     if (!decoded)
       return res
@@ -19,7 +17,9 @@ const authenticatePlayer = (req, res, next) => {
     next();
   } catch (err) {
     logger.error("Auth error:", err);
-    res.status(500).json({ message: "Internal server error during authentication" });
+    return res
+      .status(500)
+      .json({ message: "Internal server error during authentication" });
   }
 };
 

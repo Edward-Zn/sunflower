@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
   logger.info("Player data before save:", req.body);
   try {
     const { username, email, password } = req.body;
-    logger.info("REQ BODY: ", JSON.stringify(req.body));
+    logger.info("REQ BODY: ", req.body);
 
     // Generate a unique link for the player
     const uniqueLink = crypto.randomBytes(16).toString("hex");
@@ -114,9 +114,9 @@ router.post('/login', async (req, res) => {
 // Endpoint POST http://localhost:5000/api/player/login
 
 // Protected route to validate token and fetch player data
-router.get("/me", authMiddleware, (req, res) => {
+router.get("/me", authMiddleware.authenticatePlayer, (req, res) => {
   const player = req.player; // From the decoded token
   res.json({ player });
 });
 
-// Endpoint POST http://localhost:5000/api/player/me
+// Endpoint GET http://localhost:5000/api/player/me

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
@@ -22,6 +23,8 @@ function App() {
 
   const [showLogin, setShowLogin] = useState(true);
   const toggleForm = () => setShowLogin(!showLogin);
+
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   // Handle successful registration
   const handlePlayerSubmit = (playerData) => {
@@ -57,14 +60,19 @@ function App() {
           setPlayer(response.data.player);
         })
         .catch((error) => {
-          log.error("Failed to fetch player:", error);
+          log.error("Failed to fetch player (App):", error);
           localStorage.removeItem("token");
-        });
+        })
+        .finally(() => setCheckingAuth(false));
+    } else {
+      setCheckingAuth(false);
     }
   }, []);
 
   // Show either registration, login, or lobby
-  return (
+  return checkingAuth ? (
+    <div>Loading...</div> // Maybe add some loading animation here
+  ) : (
     <div className="container mx-auto p-4 text-center">
       <h1 className="text-3xl font-bold mb-4">Sunflower Field</h1>
 
