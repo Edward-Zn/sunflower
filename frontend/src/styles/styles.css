@@ -1,8 +1,25 @@
+:root {
+  --background: #fcf5e5;
+  --container-bg: #f1e9d2;
+  --btn-green: #5a8666;
+  --btn-red: #b26a5a;
+  --btn-border: rgba(0, 0, 0, 0.3);
+  --btn-shadow: rgba(0, 0, 0, 0.4);
+  --text-dark: #4a4a4a;
+  --text-light: #fff;
+}
+
+body {
+  background-color: var(--background);
+  font-family: "Cinzel", serif;
+  color: var(--text-dark);
+}
+
 .register-container {
   width: 300px;
   margin: 50px auto;
   padding: 20px;
-  background: #f1e9d2;
+  background: var(--container-bg);
   border-radius: 10px;
   text-align: center;
 }
@@ -16,50 +33,43 @@
   box-sizing: border-box;
 }
 
-.register-container button {
-  width: 100%;
-  padding: 10px;
-  background: #a0c4a1;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.register-container button:hover {
-  background: #7f9c80;
-}
-
-.register-container .error-button {
-  width: 100%;
-  padding: 10px;
-  background: #c39c7f;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.register-container .error-button:hover {
-  background: #977861;
-}
-
-.link-button {
-  background: none;
-  color: #4a5568;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
+/* General button styles */
+button {
+  padding: 10px 20px;
   font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid var(--btn-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: var(--text-light);
+  box-shadow: 0px 2px var(--btn-shadow);
+  filter: brightness(0.95);
 }
 
-.link-button:hover {
-  color: #2d3748;
+button.accept {
+  background-color: var(--btn-green);
 }
 
+button.cancel {
+  background-color: var(--btn-red);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px var(--btn-shadow);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(2px);
+  filter: brightness(0.9);
+}
+
+/* Logout button */
 .logout-button {
-  background-color: #c0392b;
-  color: #fcf5e5;
+  background-color: var(--btn-red);
+  color: var(--text-light);
   border: none;
   padding: 10px 20px;
   margin-top: 10px;
@@ -71,4 +81,18 @@
 
 .logout-button:hover {
   background-color: #a93226;
+}
+
+/* Link-styled buttons */
+.link-button {
+  background: none;
+  color: var(--text-dark);
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+.link-button:hover {
+  color: #2d3748;
 }

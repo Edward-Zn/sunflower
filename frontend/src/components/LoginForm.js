@@ -58,7 +58,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           className="input-field"
           autoFocus
         />
-        <label>Paswword:</label>
+        <label>Password:</label>
         <input
           type="password"
           name="password"
@@ -68,7 +68,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           required
           className="input-field"
         />
-        <button type="submit" disabled={isLoggingIn} className="link-button">
+        <button type="submit" disabled={isLoggingIn} className="accept">
           {isLoggingIn ? "Logging in..." : "Login"}
         </button>
       </form>

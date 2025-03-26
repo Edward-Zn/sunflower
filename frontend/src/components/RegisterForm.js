@@ -95,7 +95,7 @@ const RegisterForm = ({ onRegister }) => {
           className="input-field"
         />
 
-        <button type="submit" disabled={isSubmitting}>
+        <button type="submit" className="accept" disabled={isSubmitting}>
           {isSubmitting ? "Registering..." : "Register"}
         </button>
       </form>
