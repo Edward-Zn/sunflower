@@ -1,6 +1,6 @@
 :root {
   --background: #fcf5e5;
-  --container-bg: #f1e9d2;
+  --container-bg: #dac7a3;
   --btn-green: #5a8666;
   --btn-red: #b26a5a;
   --btn-border: rgba(0, 0, 0, 0.3);
@@ -22,15 +22,23 @@ body {
   background: var(--container-bg);
   border-radius: 10px;
   text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .register-container input {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  width: calc(100% - 20px); /* Prevents overflow */
+  max-width: 100%; /* Ensures it doesn't exceed container */
+  background: #f5eddc;
+  border: 1px solid #bca98f;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: "Cinzel", serif;
+  color: #4a4a4a;
 }
 
 /* General button styles */
