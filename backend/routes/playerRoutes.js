@@ -1,4 +1,4 @@
-// backend/routes/player.js
+// backend/routes/playerRoutes.js
 const express = require("express");
 const router = express.Router();
 

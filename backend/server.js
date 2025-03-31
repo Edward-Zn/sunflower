@@ -6,9 +6,9 @@ const cors = require("cors");
 // that reads a form's input and stores it as a javascript object accessible through req.body
 const bodyParser = require("body-parser");
 
-const playerRoutes = require("./routes/player");
-const gameRoutes = require("./routes/game");
-const lobbyRoutes = require("./routes/lobby");
+const playerRoutes = require("./routes/playerRoutes");
+const gameRoutes = require("./routes/gameRoutes");
+const lobbyRoutes = require("./routes/lobbyRoutes");
 
 require("dotenv").config();
 
