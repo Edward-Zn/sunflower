@@ -4,9 +4,6 @@ import axios from "axios";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Lobby from "./components/Lobby";
-import GameBoard from "./components/GameBoard";
-import TurnIndicator from "./components/TurnIndicator";
-import ActionPanel from "./components/ActionPanel";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,8 +15,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [player, setPlayer] = useState(null);
-  const [players, setPlayers] = useState([]);
-  const [currentTurn, setCurrentTurn] = useState(0);
 
   const [showLogin, setShowLogin] = useState(true);
   const toggleForm = () => setShowLogin(!showLogin);

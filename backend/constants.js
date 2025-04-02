@@ -3,3 +3,8 @@ export const GAME_STATUS = {
   IN_PROGRESS: "in_progress",
   FINISHED: "finished",
 };
+
+export const MAP_DEFAULT_PARAMS = {
+  HEIGHT: 50,
+  WIDTH: 50
+}

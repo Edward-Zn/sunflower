@@ -4,7 +4,7 @@ const Game = require("../models/Game");
 const Player = require("../models/Player");
 const router = express.Router();
 
-// POST: Create a new game
+// Endpoint POST http://localhost:5000/api/game/create - Create a new game
 router.post("/create", async (req, res) => {
   try {
     const { name, player1Id, player2Id } = req.body;
@@ -41,8 +41,7 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Endpoint POST http://localhost:5000/api/game/create
-
+// Endpoint PUT http://localhost:5000/api/game/update/{id}
 router.put("/update/:id", async (req, res) => {
   try {
     const { status } = req.body;
@@ -68,7 +67,5 @@ router.put("/update/:id", async (req, res) => {
     res.status(500).json({ message: "Error updating game" });
   }
 });
-
-// Endpoint PUT http://localhost:5000/api/game/update/1
 
 module.exports = router;

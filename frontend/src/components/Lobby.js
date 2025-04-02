@@ -52,7 +52,7 @@ const Lobby = ({ player, onLogout }) => {
         <p>Loading lobby data...</p>
       )}
 
-      <button className="logout-button" onClick={handleLogout}>
+      <button className="button logout-button" onClick={handleLogout}>
         Log Out
       </button>
     </div>

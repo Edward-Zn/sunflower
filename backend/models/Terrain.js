@@ -1,30 +1,37 @@
-module.exports = (sequelize, DataTypes) => {
-    const Terrain = sequelize.define('Terrain', {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      movement_cost: DataTypes.INTEGER,
-      defense_bonus: DataTypes.INTEGER,
-      can_walk: DataTypes.BOOLEAN,
-      spawn_weight: DataTypes.INTEGER,
-      color: DataTypes.STRING,
-    });
-  
-    Terrain.upsertTerrain = async function (terrainData) {
-      await Terrain.upsert(terrainData);
-    };
-  
-    return Terrain;
-  };
-  
-  // Add new Swamp type Terrain
-  await Terrain.upsertTerrain({
-    name: 'Swamp',
-    movement_cost: 3,
-    defense_bonus: -1,
-    can_walk: true,
-    spawn_weight: 2,
-    color: '#556B2F',
-  });
+// backend/models/Terrain.js
+const { DataTypes } = require("sequelize");
+const sequelize = require("../db");
+
+const Terrain = sequelize.define("Terrain", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  movement_cost: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  defense_bonus: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  can_walk: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  spawn_weight: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  color: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+module.exports = Terrain;

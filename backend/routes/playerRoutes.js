@@ -6,14 +6,14 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
 
-const { generateToken } = require('../utils/jwt');
-const logger = require('../utils/logger');
+const { generateToken } = require("../utils/jwt");
+const logger = require("../utils/logger");
 
 const Player = require("../models/Player");
 
 const authMiddleware = require("../middleware/authMiddleware"); // JWT check middleware
 
-// POST: Register a new player
+// Endpoint POST http://localhost:5000/api/player/register - Register a new player
 router.post("/register", async (req, res) => {
   logger.info("Player data before save:", req.body);
   try {
@@ -25,7 +25,11 @@ router.post("/register", async (req, res) => {
     const linkExpiresAt = moment().add(7, "days").toDate(); // Link expires in 7 days
 
     if (!username || !email || !password) {
-      logger.error("Validation failed. Missing fields:", { username, email, password });
+      logger.error("Validation failed. Missing fields:", {
+        username,
+        email,
+        password,
+      });
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -37,7 +41,11 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Save the player to the database
-    logger.info('Attempting to create a new player', { username, email, hashedPassword });
+    logger.info("Attempting to create a new player", {
+      username,
+      email,
+      hashedPassword,
+    });
     const newPlayer = await Player.create({
       username,
       email,
@@ -58,7 +66,6 @@ router.post("/register", async (req, res) => {
       },
       token,
     });
-
   } catch (err) {
     if (err.name === "SequelizeUniqueConstraintError") {
       return res
@@ -67,19 +74,16 @@ router.post("/register", async (req, res) => {
     }
 
     logger.error("Server error (player.js):", err.message); // Log the real error message in the server console
-    res.status(500).json({ 
-        message: "Error registering player. Server error (player.js)", 
-        error: err.message || "Unknown error" 
+    res.status(500).json({
+      message: "Error registering player. Server error (player.js)",
+      error: err.message || "Unknown error",
     });
     logger.info("REQUEST BODY: ", req.body);
   }
 });
 
-module.exports = router;
-
-// Endpoint POST http://localhost:5000/api/player/register
-
-router.post('/login', async (req, res) => {
+// Endpoint POST http://localhost:5000/api/player/login
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -104,19 +108,16 @@ router.post('/login', async (req, res) => {
       },
       token,
     });
-
   } catch (error) {
     logger.error("Login error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
-// Endpoint POST http://localhost:5000/api/player/login
-
-// Protected route to validate token and fetch player data
+// Endpoint GET http://localhost:5000/api/player/me - Protected route to validate token and fetch player data
 router.get("/me", authMiddleware.authenticatePlayer, (req, res) => {
   const player = req.player; // From the decoded token
   res.json({ player });
 });
 
-// Endpoint GET http://localhost:5000/api/player/me
+module.exports = router;

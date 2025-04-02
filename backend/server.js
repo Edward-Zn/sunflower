@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const playerRoutes = require("./routes/playerRoutes");
 const gameRoutes = require("./routes/gameRoutes");
 const lobbyRoutes = require("./routes/lobbyRoutes");
+const mapRoutes = require("./routes/mapRoutes");
 
 require("dotenv").config();
 
@@ -24,6 +25,8 @@ app.get("/", (req, res) => {
 app.use("/api/player", playerRoutes); // Player routes
 app.use("/api/game", gameRoutes); // Game routes
 app.use("/api/lobby", lobbyRoutes); // Lobby routes
+
+app.use("/", mapRoutes);
 
 const PORT = process.env.PORT || 5000;
 
