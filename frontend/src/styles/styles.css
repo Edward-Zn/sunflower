@@ -104,3 +104,26 @@ button:active {
 .link-button:hover {
   color: #2d3748;
 }
+
+/* @TODO Move this styling later to the separate styles/lobby.css */
+.map-grid {
+  display: inline-block;
+  border: 2px solid #ccc;
+  margin-top: 20px;
+}
+
+.map-row {
+  display: flex;
+}
+
+.map-tile {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #333;
+  cursor: pointer;
+}
+
+.map-tile:hover {
+  filter: brightness(1.2);
+}
+/* @TODO OR map.css */
