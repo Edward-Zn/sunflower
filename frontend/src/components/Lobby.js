@@ -6,8 +6,6 @@ import axios from "axios";
 
 import fetchWithAuth from "../utils/api";
 
-import axios from "axios";
-
 const Lobby = ({ player, onLogout }) => {
   const [lobbyData, setLobbyData] = useState(null);
   const [mapData, setMapData] = useState([]);
@@ -34,12 +32,50 @@ const Lobby = ({ player, onLogout }) => {
     }
   };
 
+  // Fetch Map Data
+  const fetchMap = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/generate-map`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      log.info("Map data:", response.data.map);
+      setMapData(response.data.map);
+    } catch (error) {
+      log.error("Failed to fetch map data:", error);
+      showError("Failed to generate map. Please try again.");
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload(); // Force reset to login page
 
     showInfo("Logged out successfully. See you soon!");
     onLogout();
+  };
+
+  // Render Map Grid
+  const renderMap = () => {
+    return (
+      <div className="map-grid">
+        {mapData.map((row, rowIndex) => (
+          <div key={rowIndex} className="map-row">
+            {row.map((tile, colIndex) => (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className="map-tile"
+                style={{
+                  backgroundColor: tile.color,
+                }}
+                title={`Terrain: ${tile.name}\nMovement Cost: ${tile.movement_cost}\nDefense Bonus: ${tile.defense_bonus}`}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
