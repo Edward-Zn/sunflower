@@ -4,9 +4,9 @@ import { showSuccess, showError } from "../utils/toastNotifications";
 import log from "../utils/logger";
 import fetchWithAuth from "../utils/api";
 
-const LoginForm = ({ onLoginSuccess }) => {
-  const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
+const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

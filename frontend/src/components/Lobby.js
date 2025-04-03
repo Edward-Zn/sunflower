@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { showInfo, showError } from "../utils/toastNotifications";
 import log from "../utils/logger";
+import axios from "axios";
 
 import fetchWithAuth from "../utils/api";
 
@@ -9,25 +10,29 @@ import axios from "axios";
 
 const Lobby = ({ player, onLogout }) => {
   const [lobbyData, setLobbyData] = useState(null);
+  const [mapData, setMapData] = useState([]);
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    const fetchLobby = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`${API_URL}/api/lobby`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-  
-        log.info("Lobby data:", response.data);
-      } catch (error) {
-        log.error("Failed to fetch lobby data:", error);
-        showError("Failed to load lobby. Please try again.");
-      }
-    };
-  
     fetchLobby();
+    fetchMap(); // Fetch map on component mount
   }, []);
+
+  // Fetch Lobby Data
+  const fetchLobby = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/api/lobby`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      log.info("Lobby data:", response.data);
+      setLobbyData(response.data);
+    } catch (error) {
+      log.error("Failed to fetch lobby data:", error);
+      showError("Failed to load lobby. Please try again.");
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
