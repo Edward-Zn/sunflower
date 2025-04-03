@@ -80,18 +80,32 @@ const Lobby = ({ player, onLogout }) => {
 
   return (
     <div className="lobby-container">
-      {lobbyData ? (
+      {lobbyData && lobbyData.players ? (
         <div>
           <h3>Online Players:</h3>
           <ul>
-            {lobbyData.players.map((p) => (
-              <li key={p.id}>{p.username}</li>
-            ))}
+            {lobbyData.players.length > 0 ? (
+              lobbyData.players.some((p) => p.id === player.id) ? (
+                lobbyData.players.map((p) => <li key={p.id}>{p.username}</li>)
+              ) : (
+                <>
+                  {lobbyData.players.map((p) => (
+                    <li key={p.id}>{p.username}</li>
+                  ))}
+                  <li key={player.id}>{player.username} (You)</li>
+                </>
+              )
+            ) : (
+              <li>{player.username} (You)</li>
+            )}
           </ul>
         </div>
       ) : (
         <p>Loading lobby data...</p>
       )}
+
+      <button onClick={fetchMap}>Regenerate Map</button>
+      {mapData.length > 0 && renderMap()}
 
       <button className="button logout-button" onClick={handleLogout}>
         Log Out
