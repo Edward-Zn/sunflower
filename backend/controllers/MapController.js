@@ -1,4 +1,4 @@
-// controllers/MapController.js
+// backend/controllers/MapController.js
 const mapService = require('../services/mapService');
 
 exports.generateMap = async (req, res) => {
