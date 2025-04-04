@@ -79,38 +79,52 @@ const Lobby = ({ player, onLogout }) => {
   };
 
   return (
-    <div className="lobby-container">
-      {lobbyData && lobbyData.players ? (
-        <div>
-          <h3>Online Players:</h3>
-          <ul>
-            {lobbyData.players.length > 0 ? (
-              lobbyData.players.some((p) => p.id === player.id) ? (
-                lobbyData.players.map((p) => <li key={p.id}>{p.username}</li>)
-              ) : (
-                <>
-                  {lobbyData.players.map((p) => (
-                    <li key={p.id}>{p.username}</li>
-                  ))}
-                  <li key={player.id}>{player.username} (You)</li>
-                </>
-              )
-            ) : (
-              <li>{player.username} (You)</li>
-            )}
-          </ul>
+    <>
+      {/* Header Bar */}
+      <div className="lobby-header">
+        <h1 className="lobby-title">Sunflower Field</h1>
+        <div className="header-buttons">
+          <button className="command-button" onClick={fetchMap}>
+            Regenerate Map
+          </button>
+          <button className="button logout-button" onClick={handleLogout}>
+            Log Out
+          </button>
         </div>
-      ) : (
-        <p>Loading lobby data...</p>
-      )}
+      </div>
 
-      <button onClick={fetchMap}>Regenerate Map</button>
-      {mapData.length > 0 && renderMap()}
+      <div className="lobby-container">
+        {/* Map Container */}
+        <div className="map-container">
+          {mapData.length > 0 && renderMap()}
+        </div>
 
-      <button className="button logout-button" onClick={handleLogout}>
-        Log Out
-      </button>
-    </div>
+        {/* Player List */}
+        <div className="player-list-container">
+          <h3>Online Players:</h3>
+          {lobbyData && lobbyData.players ? (
+            <ul>
+              {lobbyData.players.map((p) => (
+                <li key={p.id}>{p.username}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No players online.</p>
+          )}
+
+          <h3>Recently Online Players:</h3>
+          {lobbyData && lobbyData.recentPlayers ? (
+            <ul>
+              {lobbyData.recentPlayers.map((p) => (
+                <li key={p.id}>{p.username}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No recent players.</p>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

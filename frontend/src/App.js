@@ -69,8 +69,6 @@ function App() {
     <div className="container">Loading...</div> // Maybe add some loading animation here
   ) : (
     <div className="container mx-auto p-4 text-center">
-      <h1 className="text-3xl font-bold mb-4">Sunflower Field</h1>
-
       {!isLoggedIn ? (
         <>
           {showLogin ? (
