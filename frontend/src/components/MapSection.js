@@ -3,7 +3,7 @@ import React from "react";
 
 const MapSection = ({ mapData, onRegenerate }) => {
   return (
-    <div className="map-section">
+    <div className="map-container">
       <button className="button command-button" onClick={onRegenerate}>
         Regenerate Map
       </button>

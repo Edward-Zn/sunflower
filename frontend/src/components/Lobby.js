@@ -1,10 +1,11 @@
 // src/components/Lobby.js
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { showInfo, showError } from "../utils/toastNotifications";
 import log from "../utils/logger";
-import axios from "axios";
 
-import fetchWithAuth from "../utils/api";
+import UserList from "./UserList";
+import MapSection from "./MapSection";
 
 const Lobby = ({ player, onLogout }) => {
   const [lobbyData, setLobbyData] = useState(null);
@@ -57,74 +58,48 @@ const Lobby = ({ player, onLogout }) => {
   };
 
   // Render Map Grid
-  const renderMap = () => {
-    return (
-      <div className="map-grid">
-        {mapData.map((row, rowIndex) => (
-          <div key={rowIndex} className="map-row">
-            {row.map((tile, colIndex) => (
-              <div
-                key={`${rowIndex}-${colIndex}`}
-                className="map-tile"
-                style={{
-                  backgroundColor: tile.color,
-                }}
-                title={`Terrain: ${tile.name}\nMovement Cost: ${tile.movement_cost}\nDefense Bonus: ${tile.defense_bonus}`}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    );
-  };
+  // const renderMap = () => {
+  //   return (
+  //     <div className="map-grid">
+  //       {mapData.map((row, rowIndex) => (
+  //         <div key={rowIndex} className="map-row">
+  //           {row.map((tile, colIndex) => (
+  //             <div
+  //               key={`${rowIndex}-${colIndex}`}
+  //               className="map-tile"
+  //               style={{
+  //                 backgroundColor: tile.color,
+  //               }}
+  //               title={`Terrain: ${tile.name}\nMovement Cost: ${tile.movement_cost}\nDefense Bonus: ${tile.defense_bonus}`}
+  //             />
+  //           ))}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   return (
-    <>
+    <div className="lobby-container">
       {/* Header Bar */}
       <div className="lobby-header">
         <h1 className="lobby-title">Sunflower Field</h1>
         <div className="header-buttons">
-          <button className="command-button" onClick={fetchMap}>
-            Regenerate Map
-          </button>
           <button className="button logout-button" onClick={handleLogout}>
             Log Out
           </button>
         </div>
       </div>
 
-      <div className="lobby-container">
+      {/* Content */}
+      <div className="lobby-main">
         {/* Map Container */}
-        <div className="map-container">
-          {mapData.length > 0 && renderMap()}
-        </div>
+        <MapSection mapData={mapData} onRegenerate={fetchMap} />
 
         {/* Player List */}
-        <div className="player-list-container">
-          <h3>Online Players:</h3>
-          {lobbyData && lobbyData.players ? (
-            <ul>
-              {lobbyData.players.map((p) => (
-                <li key={p.id}>{p.username}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No players online.</p>
-          )}
-
-          <h3>Recently Online Players:</h3>
-          {lobbyData && lobbyData.recentPlayers ? (
-            <ul>
-              {lobbyData.recentPlayers.map((p) => (
-                <li key={p.id}>{p.username}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No recent players.</p>
-          )}
-        </div>
+        <UserList users={lobbyData?.players} currentUser={player} />
       </div>
-    </>
+    </div>
   );
 };
 

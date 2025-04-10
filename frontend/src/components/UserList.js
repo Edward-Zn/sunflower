@@ -1,26 +1,26 @@
 // src/components/UserList.js
 import React from "react";
 
-const UserList = ({ players = [], currentPlayer }) => {
-  if (!currentPlayer) return null;
+const UserList = ({ users = [], currentUser }) => {
+  if (!currentUser) return null;
 
   return (
-    <div className="user-list">
-      <h3>Online Players:</h3>
+    <div className="user-list-container">
+      <h3>Online Users:</h3>
       <ul>
-        {players && players.length > 0 ? (
-          players.some((p) => p.id === currentPlayer.id) ? (
-            players.map((p) => <li key={p.id}>{p.username}</li>)
+        {users && users.length > 0 ? (
+          users.some((p) => p.id === currentUser.id) ? (
+            users.map((p) => <li key={p.id}>{p.username}</li>)
           ) : (
             <>
-              {players.map((p) => (
+              {users.map((p) => (
                 <li key={p.id}>{p.username}</li>
               ))}
-              <li key={currentPlayer.id}>{currentPlayer.username} (You)</li>
+              <li key={currentUser.id}>{currentUser.username} (You)</li>
             </>
           )
         ) : (
-          <li>{currentPlayer.username} (You)</li>
+          <li>{currentUser.username} (You)</li>
         )}
       </ul>
     </div>
