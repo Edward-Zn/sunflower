@@ -8,6 +8,8 @@
   --btn-shadow: rgba(0, 0, 0, 0.4);
   --text-dark: #4a4a4a;
   --text-light: #fff;
+  --hex-height: 50px;
+  --hex-width: calc(var(--hex-height) * 0.866); /* HEX formula: width = height * sqrt(3)/2 */
 }
 
 body {
@@ -170,18 +172,19 @@ button:active {
 .map-grid {
   display: flex;
   flex-direction: column;
-  border: 2px solid #ccc;
+  /* border: 1px solid #ccc; */
   margin-top: 20px;
 }
 
 .map-row {
   display: flex;
-  height: 43.3px;
+  height: var(--hex-width);
+  line-height: 1;
 }
 
 .map-tile {
-  width: 50px;
-  height: 43.3px; /* HEX formula: height = width * sqrt(3)/2 */
+  width: var(--hex-width);
+  height: var(--hex-height);
   background: #ccc;
   clip-path: polygon(
     50% 0%,
@@ -191,8 +194,8 @@ button:active {
     0% 75%,
     0% 25%
   );
-  /* margin: 0 -1px; */
-  border: 1px solid #333;
+  margin: 0 1px;
+  border: 2px solid #333;
   cursor: pointer;
 }
 
