@@ -11,7 +11,12 @@ const MapSection = ({ mapData, onRegenerate }) => {
       {mapData.length > 0 && (
         <div className="map-grid">
           {mapData.map((row, rowIndex) => (
-            <div key={rowIndex} className="map-row">
+            <div
+              key={rowIndex}
+              className="map-row"
+              style={{
+                marginLeft: rowIndex % 2 === 0 ? "25px" : "0px", // half of tile width
+              }}>
               {row.map((tile, colIndex) => (
                 <div
                   key={`${rowIndex}-${colIndex}`}
