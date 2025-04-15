@@ -18,32 +18,6 @@ body {
   color: var(--text-dark);
 }
 
-.register-container {
-  width: 300px;
-  margin: 50px auto;
-  padding: 20px;
-  background: var(--container-bg);
-  border-radius: 10px;
-  text-align: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.register-container input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  width: calc(100% - 20px);
-  max-width: 100%;
-  background: #f5eddc;
-  border: 1px solid #bca98f;
-  border-radius: 6px;
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
-  font-family: "Cinzel", serif;
-  color: #4a4a4a;
-}
-
 /* General button styles */
 button {
   padding: 10px 20px;
@@ -83,6 +57,7 @@ button:active {
   color: var(--text-light);
   padding: 10px 20px;
   border: none;
+  margin-bottom: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -178,8 +153,8 @@ button:active {
 
 .map-row {
   display: flex;
-  height: var(--hex-width);
-  line-height: 1;
+  height: 37.5px;
+  line-height: 0;
 }
 
 .map-tile {
@@ -194,13 +169,44 @@ button:active {
     0% 75%,
     0% 25%
   );
-  margin: 0 1px;
-  border: 2px solid #333;
+  margin: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  /* box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1); */
   cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .map-tile:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.15);
+  outline: 2px solid rgba(255, 255, 255, 0.25);
+  z-index: 2;
+}
+
+.register-container {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  background: var(--container-bg);
+  border-radius: 10px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.register-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  width: calc(100% - 20px);
+  max-width: 100%;
+  background: #f5eddc;
+  border: 1px solid #bca98f;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: "Cinzel", serif;
+  color: #4a4a4a;
 }
 
 /* User List css */
