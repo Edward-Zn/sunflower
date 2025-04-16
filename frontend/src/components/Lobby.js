@@ -57,28 +57,6 @@ const Lobby = ({ player, onLogout }) => {
     onLogout();
   };
 
-  // Render Map Grid
-  // const renderMap = () => {
-  //   return (
-  //     <div className="map-grid">
-  //       {mapData.map((row, rowIndex) => (
-  //         <div key={rowIndex} className="map-row">
-  //           {row.map((tile, colIndex) => (
-  //             <div
-  //               key={`${rowIndex}-${colIndex}`}
-  //               className="map-tile"
-  //               style={{
-  //                 backgroundColor: tile.color,
-  //               }}
-  //               title={`Terrain: ${tile.name}\nMovement Cost: ${tile.movement_cost}\nDefense Bonus: ${tile.defense_bonus}`}
-  //             />
-  //           ))}
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // };
-
   return (
     <div className="lobby-container">
       {/* Header Bar */}
