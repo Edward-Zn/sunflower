@@ -8,7 +8,7 @@
   --btn-shadow: rgba(0, 0, 0, 0.4);
   --text-dark: #4a4a4a;
   --text-light: #fff;
-  --hex-height: 50px;
+  --hex-height: 50px; /* Consider 60px */
   --hex-width: calc(var(--hex-height) * 0.866); /* HEX formula: width = height * sqrt(3)/2 (50 * 0.866 ~ 43.3) */
 }
 
