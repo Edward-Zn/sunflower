@@ -132,5 +132,5 @@ sunflower-field/
 - [ ] Basic turn-based mechanics
 - [ ] Add advanced game actions
 - [ ] Implement game state persistence
-- [ ] Add user authentication
+- [x] Add user authentication
 
