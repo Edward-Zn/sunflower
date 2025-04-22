@@ -13,7 +13,7 @@ const Player = require("../models/Player");
 
 const authMiddleware = require("../middleware/authMiddleware"); // JWT check middleware
 
-// Endpoint POST http://localhost:5000/api/player/register - Register a new player
+// Endpoint POST /api/player/register - Register a new player
 router.post("/register", async (req, res) => {
   logger.info("Player data before save:", req.body);
   try {
@@ -82,7 +82,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Endpoint POST http://localhost:5000/api/player/login
+// Endpoint POST /api/player/login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -114,7 +114,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Endpoint GET http://localhost:5000/api/player/me - Protected route to validate token and fetch player data
+// Endpoint GET /api/player/me - Protected route to validate token and fetch player data
 router.get("/me", authMiddleware.authenticatePlayer, (req, res) => {
   const player = req.player; // From the decoded token
   res.json({ player });

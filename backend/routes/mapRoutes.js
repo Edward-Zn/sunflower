@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mapController = require('../controllers/MapController');
 
-// Endpoint GET http://localhost:5000/generate-map
+// Endpoint GET /generate-map
 router.get('/generate-map', mapController.generateMap);
 
 module.exports = router;
