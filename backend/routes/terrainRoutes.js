@@ -1,12 +1,12 @@
 // routes/terrainRoutes.js
 const express = require('express');
 const router = express.Router();
-const { Terrain } = require('../models');
-const authenticateToken = require('../middleware/authenticateToken');
+const Terrain = require('../models/Terrain');
+const { authenticatePlayer } = require('../middleware/authMiddleware');
 const isAdmin = require('../middleware/isAdminMiddleware');
 
 // Endpoint GET /api/terrains - fetch all terrains
-router.get('/', authenticateToken, isAdmin, async (req, res) => {
+router.get('/', authenticatePlayer, isAdmin, async (req, res) => {
   try {
     const terrains = await Terrain.findAll();
     res.json(terrains);
@@ -16,7 +16,7 @@ router.get('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Endpoint PUT /api/terrains/:id - update terrain
-router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
+router.put('/:id', authenticatePlayer, isAdmin, async (req, res) => {
     try {
       const terrain = await Terrain.findByPk(req.params.id);
       if (!terrain) {
