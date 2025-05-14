@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./AdminPanel.css"; // For admin panel custom styles later
+import "../../styles/admin.css"; // For admin panel custom styles later
 
 const AdminPanel = () => {
   const [terrains, setTerrains] = useState([]);

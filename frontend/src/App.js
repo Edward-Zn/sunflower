@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./styles/styles.css";
 import log from "./utils/logger";
 
+import AdminPanel from "./components/Admin/AdminPanel";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {

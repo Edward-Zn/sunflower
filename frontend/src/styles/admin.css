@@ -1,0 +1,19 @@
+:root {
+    --background: #fcf5e5;
+    --container-bg: #dac7a3;
+    --btn-green: #5a8666;
+    --btn-red: #b26a5a;
+    --btn-blue: #4682B4;
+    --btn-border: rgba(0, 0, 0, 0.3);
+    --btn-shadow: rgba(0, 0, 0, 0.4);
+    --text-dark: #4a4a4a;
+    --text-light: #fff;
+    --hex-height: 50px; /* Consider 60px */
+    --hex-width: calc(var(--hex-height) * 0.866); /* HEX formula: width = height * sqrt(3)/2 (50 * 0.866 ~ 43.3) */
+  }
+  
+  body {
+    background-color: var(--background);
+    font-family: "Cinzel", serif;
+    color: var(--text-dark);
+  }
